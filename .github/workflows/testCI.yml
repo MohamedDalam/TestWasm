@@ -40,7 +40,7 @@ jobs:
         cd emsdk
         ./emsdk install 3.1.14
         ./emsdk activate 3.1.14
-        source ./emsdk_env.sh
+        emsdk_env.bat
           
     - name: Configure CMake
       run: qt-cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DWASM_TARGET=True -DWASM_SDK=D:/a/TestWasm/TestWasm/emsdk/upstream -DQT_SDK_DIR=D:/a/TestWasm/TestWasm/Qt/6.4.0/wasm_32 -DQT_HOST_PATH=D:/a/TestWasm/TestWasm/Qt/6.4.0 -DCMAKE_TOOCHAIN_FILE=CMake/qt.toolchain.cmake
