@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [ "master" ]
 
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
-
 jobs:
   build:
     runs-on: windows-2019
@@ -46,9 +42,9 @@ jobs:
         ./emsdk activate 3.1.14
           
     - name: Configure CMake
-      run: qt-cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja -DWASM_TARGET=True -DCMAKE_TOOCHAIN_FILE=CMake/qt.toolchain.cmake
+      run: qt-cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DWASM_TARGET=True -DWASM_SDK=C:\emsdk\upstream -DQT_SDK_DIR=C:\Qt\6.4.0\wasm_32 -DQT_HOST_PATH=C:\Qt\6.4.0 -DCMAKE_TOOCHAIN_FILE=CMake\qt.toolchain.cmake -DCMAKE_MAKE_PROGRAM:PATH=C:\Qt\Tools\Ninja\ninja.exe
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config Release
 
