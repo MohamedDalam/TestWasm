@@ -42,7 +42,7 @@ jobs:
         ./emsdk activate 3.1.14
           
     - name: Configure CMake
-      run: qt-cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DWASM_TARGET=True -DWASM_SDK=C:\emsdk\upstream -DQT_SDK_DIR=C:\Qt\6.4.0\wasm_32 -DQT_HOST_PATH=C:\Qt\6.4.0 -DCMAKE_TOOCHAIN_FILE=CMake\qt.toolchain.cmake -DCMAKE_MAKE_PROGRAM:PATH=C:\Qt\Tools\Ninja\ninja.exe
+      run: qt-cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DWASM_TARGET=True -DWASM_SDK=D:/a/TestWasm/TestWasm/emsdk/upstream -DQT_SDK_DIR=D:/a/TestWasm/TestWasm/Qt/6.4.0/wasm_32 -DQT_HOST_PATH=D:/a/TestWasm/TestWasm/Qt/6.4.0 -DCMAKE_TOOCHAIN_FILE=CMake/qt.toolchain.cmake
 
     - name: Build
       # Build your program with the given configuration
