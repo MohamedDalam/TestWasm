@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -20,19 +20,15 @@ jobs:
       with:
         key: ${{runner.os}}-Qt6Cache
         path: ${{github.workspace}}/Qt
-    - name: Install Qt 6.4.0
+    - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
+        aqtversion: '==2.1.*'
         version: '6.4.0'
-        host: 'windows'
+        host: 'linux'
         target: 'desktop'
         arch: 'wasm_32'
-        tools: 'tools_mingw,qt.tools.win64_mingw810'
         modules: 'qtshadertools'
-        cache: ${{steps.cache-qt.outputs.cache-hit}}
-        dir: ${{github.workspace}}/Qt
-
-    - uses: seanmiddleditch/gha-setup-ninja@master
         
     - name: install emscripten
       run: |
@@ -40,13 +36,13 @@ jobs:
         cd emsdk
         ./emsdk install 3.1.14
         
-        
     - name: Config
       run: |
         cd emsdk
         ./emsdk activate 3.1.14
+        source ./emsdk_env.sh
         cd ..
-        ${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/bin/qt-cmake -S . .. -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DQT_HOST_PATH=${{github.workspace}}/Qt/Qt/6.4.0 -DWASM_TARGET=True -DWASM_SDK=/emsdk/upstream -DQT_SDK_DIR=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32 -DCMAKE_TOOCHAIN_FILE=CMake/qt.toolchain.cmake
+        ${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/bin/qt-cmake -S . .. -B build -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -DQT_HOST_PATH=${{github.workspace}}/Qt/Qt/6.4.0 -DWASM_TARGET=True -DWASM_SDK=/emsdk/upstream -DQT_SDK_DIR=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32 -DCMAKE_TOOCHAIN_FILE=CMake/qt.toolchain.cmake
        
     - name: Build
       # Build your program with the given configuration
