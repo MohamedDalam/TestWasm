@@ -43,7 +43,7 @@ jobs:
         source ./emsdk_env.sh
         cd ..
         ${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/bin/qt-cmake -S . .. -B build -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -DQT_HOST_PATH=${{github.workspace}}/Qt/Qt/6.4.0 -DWASM_TARGET=True -DWASM_SDK=/emsdk/upstream -DQT_SDK_DIR=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32 -DCMAKE_TOOCHAIN_FILE=CMake/qt.toolchain.cmake
-       
+ 
     - name: Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config Release
