@@ -10,6 +10,6 @@ Window {
         anchors.centerIn: parent
         width: 200
         height: width
-        color: "blue"
+        color: "yellow"
     }
 }
