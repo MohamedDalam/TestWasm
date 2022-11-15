@@ -43,7 +43,7 @@ jobs:
         emsdk_env.bat
           
     - name: Configure CMake
-      run: qt-cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DWASM_TARGET=True -DWASM_SDK=D:/a/TestWasm/TestWasm/emsdk/upstream -DQT_SDK_DIR=D:/a/TestWasm/TestWasm/Qt/6.4.0/wasm_32 -DQT_HOST_PATH=D:/a/TestWasm/TestWasm/Qt/6.4.0 -DCMAKE_TOOCHAIN_FILE=CMake/qt.toolchain.cmake
+      run: D:/a/TestWasm/TestWasm/Qt/6.4.0/wasm_32/bin/qt-cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
 
     - name: Build
       # Build your program with the given configuration
