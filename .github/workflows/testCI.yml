@@ -45,8 +45,8 @@ jobs:
       run: |
         cd emsdk
         ./emsdk activate 3.1.14
-        D:\a\TestWasm\TestWasm\Qt\Qt\6.4.0\wasm_32\bin\qt-cmake -S . .. -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
-          
+        ${{github.workspace}}\Qt\Qt\6.4.0\wasm_32\bin\qt-cmake -S . .. -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DQT_HOST_PATH=${{github.workspace}}\Qt\Qt\6.4.0
+       
     - name: Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config Release
