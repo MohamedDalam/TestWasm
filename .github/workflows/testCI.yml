@@ -39,7 +39,7 @@ jobs:
         git clone https://github.com/emscripten-core/emsdk.git
         cd emsdk
         ./emsdk install 3.1.14
-        ./emsdk activate 3.1.14 --permanent
+        ./emsdk activate --permanent 3.1.14
         emsdk_env.bat
           
     - name: Configure CMake
