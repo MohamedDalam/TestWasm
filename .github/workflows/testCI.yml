@@ -39,9 +39,13 @@ jobs:
         git clone https://github.com/emscripten-core/emsdk.git
         cd emsdk
         ./emsdk install 3.1.14
+        
+        
+    - name: Config
+      run: |
+        cd emsdk
         ./emsdk activate 3.1.14
-        emsdk_env.bat
-        D:\a\TestWasm\TestWasm\Qt\Qt\6.4.0\wasm_32\bin\qt-cmake -S . D:/a/TestWasm -B D:/a/TestWasm/build -DCMAKE_BUILD_TYPE=Release -G Ninja
+        D:\a\TestWasm\TestWasm\Qt\Qt\6.4.0\wasm_32\bin\qt-cmake -S . .. -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
           
     - name: Build
       # Build your program with the given configuration
