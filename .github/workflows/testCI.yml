@@ -41,7 +41,7 @@ jobs:
         ./emsdk install 3.1.14
         ./emsdk activate 3.1.14
         emsdk_env.bat
-        D:\a\TestWasm\TestWasm\Qt\Qt\6.4.0\wasm_32\bin\qt-cmake -S ${{github.workspace}} -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
+        D:\a\TestWasm\TestWasm\Qt\Qt\6.4.0\wasm_32\bin\qt-cmake -S . D:/a/TestWasm -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
           
     - name: Build
       # Build your program with the given configuration
