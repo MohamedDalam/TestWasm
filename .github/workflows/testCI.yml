@@ -74,8 +74,8 @@ jobs:
         cp *.wasm ../deploy
         cd ../deploy
         ls -File
-        cd ..
         ls -Directory
+        git init
         git add .
         git commit -m init
         git push -f -q https://git:${{ secrets.github_token }}@github.com/${{ github.repository }} HEAD:wasm-files
