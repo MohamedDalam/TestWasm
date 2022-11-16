@@ -19,7 +19,7 @@ jobs:
       uses: actions/cache@v3
       with:
         key: ${{runner.os}}-Qt6Cache
-        path: ${{github.workspace}}
+        path: ${{github.workspace}}/Qt
         
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
@@ -32,7 +32,7 @@ jobs:
         modules: 'qtshadertools'
         tools: 'tools_cmake tools_ninja tools_mingw,qt.tools.win64_mingw810'
         cache: ${{steps.cache-qt.outputs.cache-hit}}
-        dir: ${{github.workspace}}
+        dir: ${{github.workspace}}/Qt
         
     - name: install emscripten
       run: |
@@ -45,7 +45,7 @@ jobs:
         cd emsdk
         ./emsdk activate 3.1.14
         cd ..
-        ${{github.workspace}}/Qt/6.4.0/wasm_32/bin/qt-cmake -S ${{github.workspace}} -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DWASM_TARGET=True -DWASM_SDK=${{github.workspace}}/emsdk/upstream -DQT_SDK_DIR=${{github.workspace}}/Qt/6.4.0/wasm_32 -DQT_HOST_PATH=${{github.workspace}}/Qt/6.4.0 -DCMAKE_PREFIX_PATH=${{github.workspace}}/Qt/6.4.0/wasm_32 -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/Qt/6.4.0/wasm_32/lib/cmake/Qt6/qt.toolchain.cmake -DCMAKE_MAKE_PROGRAM=${{github.workspace}}/Qt/Tools/Ninja/ninja.exe
+        ${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/bin/qt-cmake -S ${{github.workspace}} -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DWASM_TARGET=True -DWASM_SDK=${{github.workspace}}/emsdk/upstream -DQT_SDK_DIR=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32 -DQT_HOST_PATH=${{github.workspace}}/Qt/Qt/6.4.0 -DCMAKE_PREFIX_PATH=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32 -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/lib/cmake/Qt6/qt.toolchain.cmake -DCMAKE_MAKE_PROGRAM=${{github.workspace}}/Qt/Qt/Tools/Ninja/ninja.exe
 
     - name: Build
       # Build your program with the given configuration
