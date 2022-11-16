@@ -41,6 +41,7 @@ jobs:
         ./emsdk install 3.1.14
         
     - name: Config
+      shell: cmd
       run: |
         cd emsdk
         ./emsdk activate 3.1.14
