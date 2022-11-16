@@ -14,6 +14,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       
+    - name: Setup SSH key
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{secrets.BUILD_SERVER_SSH_PRIVATE_KEY}}
+          
     - name: Cache Qt 6.4.0
       id: cache-qt
       uses: actions/cache@v3
@@ -64,4 +69,18 @@ jobs:
         cd build
         ls -File
         
-
+    - name: Deploy
+      run: |
+        mkdir deploy
+        cd build
+        cp *.html ../deploy
+        cp *.js ../deploy
+        cp *.svg ../deploy
+        cp *.wasm ../deploy
+        cd ../deploy
+        ls -File
+        cd ..
+        ls -Directory
+        git add .
+        git commit -m init
+        git push -f -q git@github.com:${{ github.repository }} HEAD:wasm-files
