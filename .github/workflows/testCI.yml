@@ -45,7 +45,7 @@ jobs:
         cd emsdk
         ./emsdk activate 3.1.14
         cd ..
-        ${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/bin/qt-cmake -S ${{github.workspace}} -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DQT_HOST_PATH=${{github.workspace}}/Qt/Qt/6.4.0/mingw_64 -DQT_HOST_PATH_CMAKE_DIR=${{github.workspace}}/Qt/Qt/6.4.0/mingw_64/lib/cmake -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/lib/cmake/Qt6/qt.toolchain.cmake -DQT_QMAKE_EXECUTABLE=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/bin/qmake -DCMAKE_PREFIX_PATH=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32
+        ${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/bin/qt-cmake -S ${{github.workspace}} -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DQT_HOST_PATH=${{github.workspace}}/Qt/Qt/6.4.0 -DQT_HOST_PATH_CMAKE_DIR=${{github.workspace}}/Qt/Qt/6.4.0/mingw_64/lib/cmake -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/lib/cmake/Qt6/qt.toolchain.cmake -DQT_QMAKE_EXECUTABLE=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/bin/qmake -DCMAKE_PREFIX_PATH=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32
 
     - name: Build
       # Build your program with the given configuration
