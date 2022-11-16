@@ -32,7 +32,7 @@ jobs:
         modules: 'qtshadertools'
         tools: 'tools_cmake tools_ninja tools_mingw,qt.tools.win64_mingw810'
         cache: ${{steps.cache-qt.outputs.cache-hit}}
-        dir: ${{github.workspace}}/Qt
+        dir: ${{github.workspace}}
         
     - name: install emscripten
       run: |
