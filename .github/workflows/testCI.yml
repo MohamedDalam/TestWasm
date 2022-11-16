@@ -42,6 +42,9 @@ jobs:
         
     - name: Config
       run: |
+        cd Qt/Qt/6.4.0
+        ls -a
+        cd ../../..
         cd emsdk
         ./emsdk activate 3.1.14
         cd ..
