@@ -1,0 +1,81 @@
+name: testCI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+          
+    - name: Cache Qt 6.4.0
+      id: cache-qt
+      uses: actions/cache@v3
+      with:
+        key: ${{runner.os}}-Qt6Cache
+        path: ${{github.workspace}}/Qt
+        
+    - name: Install Qt arch-wasm
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: '==2.1.*'
+        version: '6.4.0'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'wasm_32'
+        modules: 'qtshadertools'
+        tools: 'tools_cmake tools_ninja tools_mingw,qt.tools.win64_mingw810 tools_qtcreator,qt.tools.qtcreator'
+        cache: ${{steps.cache-qt.outputs.cache-hit}}
+        dir: ${{github.workspace}}/Qt
+        
+    - name: Install Qt arch-mingw
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: '==2.1.*'
+        version: '6.4.0'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_mingw'
+        cache: ${{steps.cache-qt.outputs.cache-hit}}
+        dir: ${{github.workspace}}/Qt
+        
+    - name: install emscripten
+      run: |
+        git clone https://github.com/emscripten-core/emsdk.git
+        cd emsdk
+        ./emsdk install 3.1.14
+        
+    - name: Config
+      run: |
+        cd emsdk
+        ./emsdk activate 3.1.14
+        cd ..
+        cmake -S ${{github.workspace}} -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DQT_HOST_PATH=${{github.workspace}}/Qt/Qt/6.4.0 -DQT_HOST_PATH_CMAKE_DIR=${{github.workspace}}/Qt/Qt/6.4.0/mingw_64/lib/cmake -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32/lib/cmake/Qt6/qt.toolchain.cmake -DCMAKE_PREFIX_PATH=${{github.workspace}}/Qt/Qt/6.4.0/wasm_32
+
+    - name: Build
+      run: |
+        cmake --build ${{github.workspace}}/build --config Release
+        cd build
+        ls -File
+        
+    - name: Deploy
+      run: |
+        mkdir deploy
+        cd build
+        cp *.html ../deploy
+        cp *.js ../deploy
+        cp *.svg ../deploy
+        cp *.wasm ../deploy
+        cd ../deploy
+        ls -File
+        ls -Directory
+        git init
+        git add .
+        git commit -m init
+        git push -f -q https://git:${{ secrets.github_token }}@github.com/${{ github.repository }} HEAD:wasm-files
