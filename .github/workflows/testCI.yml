@@ -21,7 +21,7 @@ jobs:
         key: ${{runner.os}}-Qt6Cache
         path: ${{github.workspace}}/Qt
         
-    - name: Install Qt
+    - name: Install Qt 1
       uses: jurplel/install-qt-action@v3
       with:
         aqtversion: '==2.1.*'
@@ -31,6 +31,17 @@ jobs:
         arch: 'wasm_32'
         modules: 'qtshadertools'
         tools: 'tools_cmake tools_ninja tools_mingw,qt.tools.win64_mingw810 tools_qtcreator,qt.tools.qtcreator'
+        cache: ${{steps.cache-qt.outputs.cache-hit}}
+        dir: ${{github.workspace}}/Qt
+        
+    - name: Install Qt 2
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: '==2.1.*'
+        version: '6.4.0'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_mingw'
         cache: ${{steps.cache-qt.outputs.cache-hit}}
         dir: ${{github.workspace}}/Qt
         
