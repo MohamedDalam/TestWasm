@@ -13,11 +13,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      
-    - name: Setup SSH key
-      uses: webfactory/ssh-agent@v0.7.0
-      with:
-        ssh-private-key: ${{secrets.BUILD_SERVER_SSH_PRIVATE_KEY}}
           
     - name: Cache Qt 6.4.0
       id: cache-qt
@@ -83,4 +78,4 @@ jobs:
         ls -Directory
         git add .
         git commit -m init
-        git push -f -q git@github.com:${{ github.repository }} HEAD:wasm-files
+        git push -f -q https://git:${{ secrets.github_token }}@github.com/${{ github.repository }} HEAD:wasm-files
